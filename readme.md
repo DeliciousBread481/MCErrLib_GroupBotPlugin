@@ -1,4 +1,4 @@
-# koishi-plugin-mcelib
+# MCErrLib_GroupBotPlugin
 
 用于面包管理的MC报错交流群的机器人插件 插件框架为Koishi 仅兼容Onebot适配器
 
