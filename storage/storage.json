@@ -1,0 +1,66 @@
+[
+{
+"ques":"ticking",
+"ans":"请查看以下教程\n看前提示：\n1.如果你是Forge 可以之前查看教程第四点以开启Forge自带的清除Ticking实体功能2.如果你不是Forge 可以查看教程内说明的相关模组以安装 也可以自行查找其他模组(例如Neruina)\nMinecraft的疑难杂症#10-实体方块Ticking了，存档就不让进了？（附NBTexplorer使用） - 哔哩哔哩https:\\/\\/www.bilibili.com\\/read\\/cv24402489\\/"
+},
+{
+"ques":"看门狗",
+"ans":"此方法可能仅起缓解作用 无法完全解决\n在你的服务器文件目录下找到server.properties文件\n打开此文件并将其中max-tick-time后面对应的数值改成比60000还大的数字（滞后更久再关闭服务器，该数字以毫秒为单位，默认滞后60秒自动关闭服务器）\n如果是1.8及以后的版本 可修改为-1（不检测滞后）\n如果需要帮忙查找卡顿原因 请提出请求并等待（可能只有面包会看）"
+},
+{
+"ques":"安卓钠",
+"ans":"新版钠不支持使用 OpenGL 转译层（如 GL4ES、ANGLE 等）的安卓设备，它们很可能无法与 Sodium 兼容。这些转译层没有实现所需的功能，且存在无法解决的底层驱动程序错误。\n请在启动器设置尝试更换为Vulkan Zink渲染器或者安装群文件-工具文件夹内的MobileGlues渲染器.apk 并在启动器设置使用此渲染器启动"
+},
+{
+"ques":"nightconfig",
+"ans":"有的时候会出现上述这样解析配置文件报错的崩溃日志。特征是含有关键字ParsingException: Not enough data available以及nightconfig\n炸鸭给出了用于修复此问题的模组\n1.20.1+：\n先把游戏文件夹里的 config 文件夹里的 fml.toml 文件删了，然后装这个模组 https:\\/\\/gitee.com\\/zekerzhayard\\/HMCL-KOOK-Resources\\/releases\\/download\\/2024.2.5\\/NightConfigFixesPlus-1.0.jar\n1.19.4-：\n装这个模组 https:\\/\\/gitee.com\\/zekerzhayard\\/HMCL-KOOK-Resources\\/releases\\/download\\/2024.2.5\\/NightConfigFixesPlus-1.0.jar"
+},
+{
+"ques":"查看显卡",
+"ans":"按下图顺序把你的显卡型号截图发过来[CQ:image,file=https://img.picui.cn/free/2025/03/14/67d31d0861328.jpg][CQ:image,file=https://img.picui.cn/free/2025/03/14/67d31d0aed90e.jpg][CQ:image,file=https://img.picui.cn/free/2025/03/14/67d31d0d74f6e.jpg]"
+},
+{
+"ques":"显卡高性能",
+"ans":"NVIDIA显卡用户：在 NVIDIA 控制面板里按图里顺序改成「高性能 NVIDIA 处理器」，然后点下面的「应用」，最后重启电脑[CQ:image,file=https://img.picui.cn/free/2025/03/14/67d31ddf483ba.jpg]\n不改全局设置也可以，选择 “程序设置”，添加游戏进程所用的 java 并设置为高性能\nAMD卡用户：查看以下教程将你的独显切换为高性能模式 AMD 独显开启教程：https:\\/\\/zhuanlan.zhihu.com\\/p\\/548563759"
+},
+{
+"ques":"i18n",
+"ans":"I18nUpdateMod 模组在启动器的模组管理界面禁用掉，然后去 http:\\/\\/downloader1.meitangdehulu.com:22943\\/ 手动下载汉化包，下载之后把它放到游戏文件夹里的 resourcepacks 文件夹里"
+},
+{
+"ques":"内存不足",
+"ans":"请确认你有足够的内存游玩这个版本 尝试把启动器的内存分配设置为自动分配 PCL启动器还可以打开『内存优化功能』[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c714d58f0.jpg]\n如果还是不行 就按照下面的操作来\n下载运行这个程序 https:\\/\\/img.kookapp.cn\\/attachments\\/2024-06\\/20\\/66744a8919d2d.bat ，然后在桌面右键此电脑 -- 属性 -- 高级系统设置，然后按图里的样子把虚拟内存换到其他剩余容量大于 80GB 的盘里（初始大小 1024，最大值 65535），改完之后点一下「设置」，然后点三个「确定」（不要点右上角的叉），最后重启电脑[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c71636e3f.jpg]"
+},
+{
+"ques":"A卡驱动",
+"ans":"前往 https:\\/\\/www.amd.com\\/zh-cn\\/support\\/download\\/drivers.html 下载驱动安装程序以更新你的驱动[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c79875d50.jpg]"
+},
+{
+"ques":"UTF8",
+"ans":"1.请不要让你的游戏文件所在路径包含中文或其他非法字符\n2.请确认你的UTF8设置已关闭\n关闭流程：在 控制面板 -- 时钟和区域 -- 区域 -- 管理 -- 更改系统区域设置 里面上面选「中文（简体，中国）」，并且把下面那个勾去掉[CQ:image,file=https://img.picui.cn/free/2025/03/13/67d1bfb02db1b.jpg]"
+},
+{
+"ques":"debug",
+"ans":"先下载这个文件，把它放到游戏文件夹里的 config 文件夹里 https:\\/\\/gitee.com\\/zekerzhayard\\/HMCL-KOOK-Resources\\/releases\\/download\\/2024.2.5\\/log4j2.xml\n随后需要填入以下参数：\n-Dlog4j2.formatMsgNoLookups=false -Dlog4j.configurationFile=config\\/log4j2.xml \n（参数最前面的横杠不要漏掉）\n如何填入请看下方\n===============\nPCL：然后进入版本设置-设置-高级启动选项-JVM启动参数头填入参数 [CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b3a9e24.jpg]\n===============\nHMCL：然后在 HMCL 的「游戏特定设置」（不是全局游戏设置）里的「Java 虚拟机参数」里加参数[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b49f862.jpg][CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b5891bd.jpg]\n进去后滚轮往下翻 找到这个[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b67b47e.jpg]\n===============\n然后启动游戏，出现问题之后把游戏文件夹里的 logs 文件夹里的 debug.log 文件发一下"
+},
+{
+"ques":"RLC-optifine",
+"ans":"下载这个模组，然后放进游戏文件夹里的 mods 文件夹里 https:\\/\\/optifine.net\\/adloadx?f=OptiFine_1.12.2_HD_U_G5.jar"
+},
+{
+"ques":"fastutil",
+"ans":"下载安装这个模组 https:\\/\\/www.mcmod.cn\\/class\\/9329.html"
+},
+{
+"ques":"发包过大",
+"ans":"主机端和客机端都下载安装这个模组 https:\\/\\/www.mcmod.cn\\/class\\/12625.html"
+},
+{
+"ques":"-填入参数",
+"ans":"===============\nPCL：然后进入版本设置﹣设置﹣高级启动选项﹣JVM启动参数头填入参数[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b3a9e24.jpg]\n===============\nHMCL：然后在 HMCL的「游戏特定设置」（不是全局游戏设置〕里的「Java虚拟机参数」里加参数[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b49f862.jpg][CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b5891bd.jpg]\n进去后滚轮往下翻 找到这个[CQ:image,file=https://img.picui.cn/free/2025/03/16/67d5c9b67b47e.jpg]\n===============\n随后填入以下参数："
+},
+{
+"ques":"CME",
+"ans":"下载这个模组：https:\\/\\/modrinth.com\\/mod\\/cme-is-bad\\/version\\/1.0.4，放进 mods 文件夹中，不要更改模组命名（即“CMESuckMyDuck-1.0.4.jar”），然后在游戏设置的「Java 虚拟机参数」里加以下参数：\n\n-javaagent:mods\\/CMESuckMyDuck-1.0.4.jar=args\n\n再次启动游戏，然后在游戏崩溃之后发新的游戏崩溃信息"
+}
+]

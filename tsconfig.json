@@ -17,6 +17,8 @@
       "node",
       "yml-register/types"
     ]
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
   },
   "include": [
     "src"
