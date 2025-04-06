@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-mcerrlib",
+  "name": "@bread481/koishi-plugin-mcerrlib",
   "description": "用于面包管理的MC报错交流群的机器人插件 插件框架为Koishi 仅兼容Onebot适配器",
   "version": "0.0.1",
   "main": "lib/index.js",
@@ -8,15 +8,34 @@
     "lib",
     "dist"
   ],
-  "license": "MIT",
-  "scripts": {},
-  "keywords": [
-    "chatbot",
-    "koishi",
-    "plugin"
+  "contributors": [
+    "DeliciousBread481 3574467868@qq.com"
   ],
-  "devDependencies": {},
+  "license": "MIT",
+  "homepage": "https://github.com/DeliciousBread481",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeliciousBread481/MCErrLib_GroupBotPlugin.git"
+  },
+  "keywords": [
+    "mcerrlob"
+  ],
+  "koishi": {
+    "description": {
+      "en": "A Koishi plugin for a QQ Minecraft (MC) error reporting group, only compatible with OneBot.",
+      "zh": "一个用在QQ MC报错交流群的Koishi插件 仅适配于Onebot"
+    },
+    "hidden": "true",
+    "service": {
+      "required": [
+        "admin"
+      ]
+    }
+  },
   "peerDependencies": {
     "koishi": "^4.18.7"
+  },
+  "dependencies": {
+    "axios": "^1.8.4"
   }
 }
