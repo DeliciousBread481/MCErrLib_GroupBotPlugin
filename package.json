@@ -1,0 +1,20 @@
+{
+  "name": "koishi-plugin-mcgroupbot",
+  "description": "一个用于Minecraft疑难杂症交流群的机器人插件",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.18.7"
+  }
+}
