@@ -7,7 +7,7 @@ import TextHandler from './JSONHandler/_index';
 let boolban = undefined;
 let boolchecknotice = false;
 let boolcursendcheck = false;
-let boolhello = true;
+let boolhello = false;
 let boolnotice = false;
 let boolreminder = false;
 let boolrecheckfile = 0;
@@ -208,6 +208,8 @@ export function apply(ctx: Context,config: Config) {
         boolnotice = false;
       }
     }else if(!boolban){
+      //console.log(boolhello);
+      //console.log(await getTime());
       if(await getTime() == 1 && boolhello == false){//未宵禁-早上
         //await GroupHandler.gcurfew.Curfew(groupId,boolban);
         await GroupHandler.gmsg.sendGroupMsg(groupId,"早上好呀，米娜！今天也要开心喔！");
@@ -222,7 +224,7 @@ export function apply(ctx: Context,config: Config) {
 
     //console.log(config.groupId)
   }
-  setInterval(() => CurfewHandler(config),1000*5*60);
+  setInterval(() => CurfewHandler(config),1000*5);
 
   ctx.on("guild-member-added",async(session) => {//入群欢迎
     if(session.channelId == config.groupId){
