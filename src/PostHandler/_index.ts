@@ -1,7 +1,8 @@
+import postfile from "./PostFile";
 import postcat from "./PostNapcat"
 
 const PostHandler = {
-  postcat
+  postcat,postfile
 }
 
 export default PostHandler;

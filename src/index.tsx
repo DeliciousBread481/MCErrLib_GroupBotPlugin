@@ -404,6 +404,8 @@ export function apply(ctx: Context,config: Config) {
       //console.log(timestr);
       const filearr = await GroupHandler.gfile.getGroupFiles(session,1+config.foldernum);
       const fileobj = filearr[0];
+      await PostHandler.postfile.downloadFile(session,fileobj.fileId,fileobj.fileName);
+      await PostHandler.postfile.PostFileInfo(fileobj.fileName);
       console.log(fileobj);
       await ctx.database.create('File', {
         id: parseInt(timestr),

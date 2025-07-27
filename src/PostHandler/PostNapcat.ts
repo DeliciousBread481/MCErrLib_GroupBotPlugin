@@ -212,7 +212,7 @@ async function getGroupFiles(session,num) {
   await axios(config)
   .then(function (response) {
     //console.log("获取文件：\n");
-    //console.log(response.data.data.files[0]);
+    console.log(response.data.data.files[0]);
     //console.log(response.data);
     const len = response.data.data.files.length;
     for (let i = 0; i < len; i++) {
@@ -228,6 +228,63 @@ async function getGroupFiles(session,num) {
   })
 
   return back;
+}
+
+async function getGroupFileURL(session,fileId,fileName) {
+  let callback = "";
+  const data = {
+    "group_id": session.channelId,
+    "file_id": fileId
+  }
+
+  const config = {
+    method: 'post',
+    url: 'http://127.0.0.1:3001/get_group_file_url',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  }
+
+  await axios(config)
+  .then(function (response) {
+    //console.log(response.data.data.url);
+    callback = response.data.data.url;
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+
+  callback += fileName;
+  //console.log(callback);
+
+  return callback;
+}
+
+async function downloadGroupFile(session,fileId,fileName) {
+  console.log("下载文件：");
+  const url = await getGroupFileURL(session,fileId,fileName);
+  console.log(url);
+  const data = JSON.stringify({
+    "url": url
+  })
+
+  const config = {
+    method: 'post',
+    url: 'http://127.0.0.1:3001/download_file',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data : data
+  }
+
+  await axios(config)
+  .then(function (response) {
+    console.log("已将文件保存至："+`${response.data.data.file}`);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
 }
 
 async function deleteGroupFile(groupId,fileId) {
@@ -311,6 +368,8 @@ const postcat = {
   sendGroupMsg,
   setGroupBan,
   getGroupFiles,
+  getGroupFileURL,
+  downloadGroupFile,
   deleteGroupFile,
   checkGroupBan
 };
