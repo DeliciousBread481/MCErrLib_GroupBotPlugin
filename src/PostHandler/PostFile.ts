@@ -23,7 +23,7 @@ async function PostFileInfo(fileName) {
 
   const config = {
     method: 'post',
-    url: 'http://localhost:5000/file_info',
+    url: 'http://127.0.0.1:5000/file_info',
     headers: {
       'Content-Type': 'application/json'
     },

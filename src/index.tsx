@@ -3,6 +3,8 @@ import {} from 'koishi-plugin-markdown-to-image-service';
 import GroupHandler from './GroupHandler/_index'
 import PostHandler from './PostHandler/_index'
 import TextHandler from './JSONHandler/_index';
+import { pathToFileURL } from 'url';
+import { resolve } from 'path';
 
 let boolban = undefined;
 let boolchecknotice = false;
@@ -10,8 +12,14 @@ let boolcursendcheck = false;
 let boolhello = false;
 let boolnotice = false;
 let boolreminder = false;
+let boolques = false;
 let boolrecheckfile = 0;
 let filenum = 0;
+let quesuser = undefined;
+let boolqueschange = false;
+let quesstr = "";
+let ansstr = "";
+let changeindex = 0;
 
 export const inject = {
   required: ['markdownToImage','database'],
@@ -21,6 +29,7 @@ declare module 'koishi' {
   interface Tables {
     File: Schedule
     GroupBan: Schedule
+    Ans: Schedule
   }
 }
 
@@ -36,6 +45,13 @@ export interface Schedule {
   id: number
   boolstatus: string
   time: number
+}
+
+export interface Schedule {
+  id: number
+  ques: string
+  ans: string
+  description: string
 }
 
 export interface Config {
@@ -82,6 +98,13 @@ export function apply(ctx: Context,config: Config) {
     id: 'unsigned',
     boolstatus: 'string',
     time: 'unsigned',
+  })
+
+  ctx.model.extend('Ans',{
+    id: 'unsigned',
+    ques: 'string',
+    ans: 'string',
+    description: 'string',
   })
 
   async function checkBanData() {
@@ -274,6 +297,129 @@ export function apply(ctx: Context,config: Config) {
               await GroupHandler.gmsg.sendGroupMsg(session.channelId,"请指定要艾特的人喔");
               return next();
             }
+          }
+        }
+      }else{
+        return next();
+      }
+    }else{
+      return next();
+    }
+  })
+
+  ctx.middleware(async (session,next) => {
+    if(await GroupHandler.gop.checkOp(session,config) >= 1){
+
+      if(session.content == "获取问答库列表"){
+        let markdowwn = "| 主键ID | 问题关键词 | 描述 |";
+        markdowwn += "\n| --- | --- | --- |";
+        const len = (await ctx.database.stats()).tables.Ans.count;
+        for (let i = 0;i < len;i++){
+          const ansObject = await ctx.database.get("Ans",i);
+          if(ansObject[i].description == ""){
+            ansObject[i].description = "暂无描述 等待添加喵";
+          }
+          markdowwn += `\n| ${ansObject[i].id} | ${ansObject[i].ques} | ${ansObject[i].description} |`;
+        }
+        let imagebuffer;
+        try{
+          imagebuffer = await ctx.markdownToImage.convertToImage(markdowwn);
+        }catch(e){
+          session.send("抱歉喔 图片渲染出了问题 可以再试一次哦");
+          console.log(e);
+          return next();
+        }
+        await session.send(<>查看具体快捷回答用法请发送：<br />帮助 -[对应快捷回答的主键ID]<br /><img src={'data:image/png;base64,' + imagebuffer.toString('base64')} /></>);
+      }else{
+        return next();
+      }
+    }else{
+      return next();
+    }
+  })
+
+  ctx.middleware(async (session,next) => {
+    if(await GroupHandler.gop.checkOp(session,config) >= 1){
+
+      if(session.content == "写入问答库"){
+        quesuser = session.author.id;
+        boolques = true;
+        session.send(<>已开启写入模式 请按照以下格式发送消息喔<br /><img src={pathToFileURL(resolve(__dirname,"../picture/Help-AnsWrite.png")).href} />如果需要退出请发送：取消</>);
+      }else{
+        return next();
+      }
+    }else{
+      return next();
+    }
+  })
+
+  ctx.middleware(async (session,next) => {
+    if(await GroupHandler.gop.checkOp(session,config) >= 1){
+
+      if(quesuser == session.author.id && boolques == true && session.content != "取消"){
+        boolques = false;
+        const index = session.content.indexOf("\n");
+        quesstr = session.content.substring(0,index);
+        ansstr = session.content.substring(index+1);
+        const len = (await ctx.database.stats()).tables.Ans.count;
+        for(let i = 0;i < len;i++){
+          if(await ctx.database.get("Ans",i,["ques"])[0] == quesstr){
+            session.send("该快捷回答已存在 是否进行替换操作？(是/否)");
+            changeindex = i;
+            boolqueschange = true;
+          }
+        }
+        if(boolqueschange == false){
+          await ctx.database.create("Ans",{
+            id: len,
+            ques: quesstr,
+            ans: ansstr,
+          });
+          session.send("快捷回答添加成功了喵~");
+        }
+      }else if(quesuser == session.author.id && boolques == true && session.content == "取消"){
+        session.send("已退出写入模式");
+      }else{
+        return next();
+      }
+    }else{
+      return next();
+    }
+  })
+
+  ctx.middleware(async (session,next) => {
+    if(await GroupHandler.gop.checkOp(session,config) >= 1){
+
+      if(boolqueschange == true && session.content == "是"){
+        boolqueschange = false;
+        await ctx.database.set("Ans",changeindex, {
+          ques: quesstr,
+          ans: ansstr,
+        })
+        session.send("快捷回答成功替换了喵~");
+      }else if(boolqueschange == true && session.content == "否"){
+        session.send("已退出写入模式");
+      }else{
+        return next();
+      }
+    }else{
+      return next();
+    }
+  })
+
+  ctx.middleware(async (session,next) => {
+    if(await GroupHandler.gop.checkOp(session,config) >= 1){
+
+      if(session.content.includes("问答库")){
+        const regex: RegExp = /问答库\s(.+?)/;
+        if (regex.test(session.content)){
+          const index = session.content.indexOf("库");
+          const msgquesstr = session.content.substring(index+2)
+          const backans = await ctx.database.get("Ans",{
+            ques: msgquesstr
+          })
+          if(backans != null){
+            session.send(backans[0].ans);
           }
         }
       }else{
